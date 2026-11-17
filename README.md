@@ -16,3 +16,13 @@ streamlit run app.py        # abre o dashboard
 O arquivo `.env` contém credenciais e **não** deve ser commitado (já está no `.gitignore`).
 
 `ORACLE_DSN` usa o formato `host:porta/service_name`, ex.: `oracle.empresa.com:1521/ORCLPDB1`.
+
+## Erro DPY-3015 (modo thick)
+
+Se o banco usa o verificador de senha antigo (10G), o modo thin não funciona. Instale o
+[Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html)
+(pacote *Basic Light*), extraia em uma pasta e informe o caminho no `.env`:
+
+```
+ORACLE_CLIENT_LIB_DIR=C:\oracle\instantclient_23_0
+```

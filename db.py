@@ -1,4 +1,4 @@
-"""Conexão com o Oracle usando python-oracledb (modo thin, sem Oracle Client)."""
+"""Conexão com o Oracle usando python-oracledb (thin por padrão; thick se ORACLE_CLIENT_LIB_DIR estiver definida)."""
 import os
 
 import oracledb
@@ -6,6 +6,12 @@ import pandas as pd
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Modo thick (Oracle Instant Client): necessário quando o banco usa recursos que o
+# modo thin não suporta, ex.: DPY-3015 (verificador de senha antigo 10G).
+_lib_dir = os.getenv("ORACLE_CLIENT_LIB_DIR")
+if _lib_dir:
+    oracledb.init_oracle_client(lib_dir=_lib_dir)
 
 
 def conectar() -> oracledb.Connection:
